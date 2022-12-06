@@ -42,10 +42,10 @@ class _TvSeriesDetailPageState extends State<TvSeriesDetailPage> {
               child: CircularProgressIndicator(),
             );
           } else if (provider.seriesState == RequestState.Loaded) {
-            final movie = provider.series;
+            final series = provider.series;
             return SafeArea(
               child: DetailContent(
-                movie,
+                series,
                 provider.tvSeriesRecommendations,
                 provider.isAddedToWatchlist,
               ),
@@ -185,7 +185,7 @@ class DetailContent extends StatelessWidget {
                               'Recommendations',
                               style: kHeading6,
                             ),
-                            Consumer<MovieDetailNotifier>(
+                            Consumer<TvSeriesDetailNotifier>(
                               builder: (context, data, child) {
                                 if (data.recommendationState ==
                                     RequestState.Loading) {
@@ -202,7 +202,7 @@ class DetailContent extends StatelessWidget {
                                     child: ListView.builder(
                                       scrollDirection: Axis.horizontal,
                                       itemBuilder: (context, index) {
-                                        final movie = recommendations[index];
+                                        final series = recommendations[index];
                                         return Padding(
                                           padding: const EdgeInsets.all(4.0),
                                           child: InkWell(
@@ -210,7 +210,7 @@ class DetailContent extends StatelessWidget {
                                               Navigator.pushReplacementNamed(
                                                 context,
                                                 TvSeriesDetailPage.ROUTE_NAME,
-                                                arguments: movie.id,
+                                                arguments: series.id,
                                               );
                                             },
                                             child: ClipRRect(
@@ -219,7 +219,7 @@ class DetailContent extends StatelessWidget {
                                               ),
                                               child: CachedNetworkImage(
                                                 imageUrl:
-                                                    'https://image.tmdb.org/t/p/w500${movie.posterPath}',
+                                                    'https://image.tmdb.org/t/p/w500${series.posterPath}',
                                                 placeholder: (context, url) =>
                                                     Center(
                                                   child:
@@ -290,16 +290,5 @@ class DetailContent extends StatelessWidget {
     }
 
     return result.substring(0, result.length - 2);
-  }
-
-  String _showDuration(int runtime) {
-    final int hours = runtime ~/ 60;
-    final int minutes = runtime % 60;
-
-    if (hours > 0) {
-      return '${hours}h ${minutes}m';
-    } else {
-      return '${minutes}m';
-    }
   }
 }

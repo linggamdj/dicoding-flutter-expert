@@ -2,11 +2,6 @@ import 'dart:convert';
 import 'package:ditonton/domain/entities/tv_series.dart';
 import 'package:equatable/equatable.dart';
 
-TvSeriesModel serialTvModelFromJson(String str) =>
-    TvSeriesModel.fromJson(json.decode(str));
-
-String serialTvModelToJson(TvSeriesModel data) => json.encode(data.toJson());
-
 class TvSeriesModel extends Equatable {
   TvSeriesModel({
     required this.firstAirDate,

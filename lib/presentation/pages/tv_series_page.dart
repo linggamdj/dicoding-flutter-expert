@@ -129,25 +129,6 @@ class _TvSeriesPageState extends State<TvSeriesPage> {
                   }
                 },
               ),
-              // _buildSubHeading(
-              //   title: 'Airing Today',
-              //   onTap: () => Navigator.pushNamed(
-              //       context, PopularTvSeriesPage.ROUTE_NAME),
-              // ),
-              // Consumer<TvSeriesListNotifier>(
-              //   builder: (context, data, child) {
-              //     final state = data.popularTvSeriesState;
-              //     if (state == RequestState.Loading) {
-              //       return Center(
-              //         child: CircularProgressIndicator(),
-              //       );
-              //     } else if (state == RequestState.Loaded) {
-              //       return TvSeriesList(data.popularTvSeries);
-              //     } else {
-              //       return Text('Failed');
-              //     }
-              //   },
-              // ),
             ],
           ),
         ),

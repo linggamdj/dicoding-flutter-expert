@@ -57,18 +57,18 @@ class TvSeriesDetailNotifier extends ChangeNotifier {
         _message = failure.message;
         notifyListeners();
       },
-      (tvSeries) {
+      (series) {
         _recommendationState = RequestState.Loading;
-        _series = tvSeries;
+        _series = series;
         notifyListeners();
         recommendationResult.fold(
           (failure) {
             _recommendationState = RequestState.Error;
             _message = failure.message;
           },
-          (series) {
+          (recomsSeries) {
             _recommendationState = RequestState.Loaded;
-            _tvSeriesRecommendations = series;
+            _tvSeriesRecommendations = recomsSeries;
           },
         );
         _seriesState = RequestState.Loaded;
