@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/domain/entities/genre.dart';
-import 'package:ditonton/domain/entities/movie.dart';
+import 'package:ditonton/domain/entities/tv_series.dart';
 import 'package:ditonton/domain/entities/tv_series_detail.dart';
 import 'package:ditonton/presentation/provider/movie_detail_notifier.dart';
 import 'package:ditonton/common/state_enum.dart';
@@ -46,7 +46,7 @@ class _TvSeriesDetailPageState extends State<TvSeriesDetailPage> {
             return SafeArea(
               child: DetailContent(
                 movie,
-                provider.movieRecommendations,
+                provider.tvSeriesRecommendations,
                 provider.isAddedToWatchlist,
               ),
             );
@@ -61,7 +61,7 @@ class _TvSeriesDetailPageState extends State<TvSeriesDetailPage> {
 
 class DetailContent extends StatelessWidget {
   final TvSeriesDetail series;
-  final List<Movie> recommendations;
+  final List<TvSeries> recommendations;
   final bool isAddedWatchlist;
 
   DetailContent(this.series, this.recommendations, this.isAddedWatchlist);
