@@ -13,6 +13,8 @@ abstract class MovieRepository {
   Future<Either<Failure, List<Movie>>> getMovieRecommendations(int id);
   Future<Either<Failure, List<Movie>>> searchMovies(String query);
   Future<Either<Failure, List<TvSeries>>> getPopularTvSeries();
+  Future<Either<Failure, List<TvSeries>>> getTopRatedTvSeries();
+  Future<Either<Failure, List<TvSeries>>> getAiringTvSeries();
   Future<Either<Failure, List<TvSeries>>> getTvSeriesRecommendations(int id);
   Future<Either<Failure, TvSeriesDetail>> getTvSeriesDetail(int id);
   Future<Either<Failure, String>> saveWatchlist(MovieDetail movie);

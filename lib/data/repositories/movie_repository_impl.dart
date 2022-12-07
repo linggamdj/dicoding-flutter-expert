@@ -105,6 +105,30 @@ class MovieRepositoryImpl implements MovieRepository {
   }
 
   @override
+  Future<Either<Failure, List<TvSeries>>> getTopRatedTvSeries() async {
+    try {
+      final result = await remoteDataSource.getTopRatedTvSeries();
+      return Right(result.map((model) => model.toEntity()).toList());
+    } on ServerException {
+      return Left(ServerFailure(''));
+    } on SocketException {
+      return Left(ConnectionFailure('Failed to connect to the network'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<TvSeries>>> getAiringTvSeries() async {
+    try {
+      final result = await remoteDataSource.getAiringTvSeries();
+      return Right(result.map((model) => model.toEntity()).toList());
+    } on ServerException {
+      return Left(ServerFailure(''));
+    } on SocketException {
+      return Left(ConnectionFailure('Failed to connect to the network'));
+    }
+  }
+
+  @override
   Future<Either<Failure, TvSeriesDetail>> getTvSeriesDetail(int id) async {
     try {
       final result = await remoteDataSource.getTvSeriesDetail(id);
