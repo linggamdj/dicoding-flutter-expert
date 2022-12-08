@@ -1,10 +1,8 @@
 import 'dart:io';
 import 'package:dartz/dartz.dart';
-import 'package:ditonton/data/datasources/movie_local_data_source.dart';
+import 'package:ditonton/data/datasources/tv_series_local_data_source.dart';
 import 'package:ditonton/data/datasources/tv_series_remote_data_source.dart';
-import 'package:ditonton/data/models/movie_table.dart';
-import 'package:ditonton/domain/entities/movie.dart';
-import 'package:ditonton/domain/entities/movie_detail.dart';
+import 'package:ditonton/data/models/tv_series_table.dart';
 import 'package:ditonton/domain/entities/tv_series.dart';
 import 'package:ditonton/domain/entities/tv_series_detail.dart';
 import 'package:ditonton/common/exception.dart';
@@ -13,7 +11,7 @@ import 'package:ditonton/domain/repositories/tv_series_repository.dart';
 
 class TvSeriesRepositoryImpl implements TvSeriesRepository {
   final TvSeriesRemoteDataSource remoteDataSource;
-  final MovieLocalDataSource localDataSource;
+  final TvSeriesLocalDataSource localDataSource;
 
   TvSeriesRepositoryImpl({
     required this.remoteDataSource,
@@ -94,10 +92,11 @@ class TvSeriesRepositoryImpl implements TvSeriesRepository {
   }
 
   @override
-  Future<Either<Failure, String>> saveWatchlist(MovieDetail movie) async {
+  Future<Either<Failure, String>> saveTvSeriesWatchlist(
+      TvSeriesDetail tvSeries) async {
     try {
-      final result =
-          await localDataSource.insertWatchlist(MovieTable.fromEntity(movie));
+      final result = await localDataSource
+          .insertTvSeriesWatchlist(TvSeriesTable.fromEntity(tvSeries));
       return Right(result);
     } on DatabaseException catch (e) {
       return Left(DatabaseFailure(e.message));
@@ -107,10 +106,11 @@ class TvSeriesRepositoryImpl implements TvSeriesRepository {
   }
 
   @override
-  Future<Either<Failure, String>> removeWatchlist(MovieDetail movie) async {
+  Future<Either<Failure, String>> removeTvSeriesWatchlist(
+      TvSeriesDetail tvSeries) async {
     try {
-      final result =
-          await localDataSource.removeWatchlist(MovieTable.fromEntity(movie));
+      final result = await localDataSource
+          .removeTvSeriesWatchlist(TvSeriesTable.fromEntity(tvSeries));
       return Right(result);
     } on DatabaseException catch (e) {
       return Left(DatabaseFailure(e.message));
@@ -119,13 +119,13 @@ class TvSeriesRepositoryImpl implements TvSeriesRepository {
 
   @override
   Future<bool> isAddedToWatchlist(int id) async {
-    final result = await localDataSource.getMovieById(id);
+    final result = await localDataSource.getTvSeriesById(id);
     return result != null;
   }
 
   @override
-  Future<Either<Failure, List<Movie>>> getWatchlistMovies() async {
-    final result = await localDataSource.getWatchlistMovies();
+  Future<Either<Failure, List<TvSeries>>> getWatchlistTvSeries() async {
+    final result = await localDataSource.getWatchlistTvSeries();
     return Right(result.map((data) => data.toEntity()).toList());
   }
 }
