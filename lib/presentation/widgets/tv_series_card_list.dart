@@ -35,7 +35,7 @@ class TvSeriesCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      series.name,
+                      series.name ?? '-',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: kHeading6,
@@ -44,7 +44,7 @@ class TvSeriesCard extends StatelessWidget {
                     Text(
                       series.overview == ''
                           ? 'Currently this series has no overview information.'
-                          : series.overview,
+                          : series.overview ?? '-',
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),

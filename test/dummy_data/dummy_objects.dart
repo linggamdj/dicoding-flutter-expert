@@ -1,8 +1,13 @@
 import 'package:ditonton/data/models/movie_table.dart';
+import 'package:ditonton/data/models/tv_series_table.dart';
 import 'package:ditonton/domain/entities/genre.dart';
+import 'package:ditonton/domain/entities/season.dart';
 import 'package:ditonton/domain/entities/movie.dart';
+import 'package:ditonton/domain/entities/tv_series.dart';
 import 'package:ditonton/domain/entities/movie_detail.dart';
+import 'package:ditonton/domain/entities/tv_series_detail.dart';
 
+// Movie
 final testMovie = Movie(
   adult: false,
   backdropPath: '/muth4OYamXf41G2evdrLEg8d3om.jpg',
@@ -56,4 +61,66 @@ final testMovieMap = {
   'overview': 'overview',
   'posterPath': 'posterPath',
   'title': 'title',
+};
+
+// TV Series
+final testTvSeries = TvSeries(
+  name: "fdsfas",
+  firstAirDate: "123",
+  backdropPath: '/muth4OYamXf41G2evdrLEg8d3om.jpg',
+  genreIds: [14, 28],
+  id: 557,
+  overview:
+      'After being bitten by a genetically altered spider, nerdy high school student Peter Parker is endowed with amazing powers to become the Amazing superhero known as Spider-Man.',
+  popularity: 60.441,
+  posterPath: '/rweIrveL43TaxUN0akQEaAXL6x0.jpg',
+  originCountry: ['213', '33'],
+  originalLanguage: "ID",
+  originalName: "fdfasda",
+  voteAverage: 7.2,
+  voteCount: 13507,
+);
+
+final testTvSeriesList = [testTvSeries];
+
+final testTvSeriesDetail = TvSeriesDetail(
+  genres: [Genre(id: 1, name: 'Action')],
+  id: 66732,
+  name: "Stranger Things",
+  numberOfEpisodes: 34,
+  numberOfSeasons: 4,
+  overview: "Stranger Things",
+  posterPath: "/49WJfeN0moxb9IPfGn8AIqMGskD.jpg",
+  voteAverage: 8.6,
+  seasons: [
+    Season(
+      airDate: '321321',
+      episodeCount: 8,
+      id: 77680,
+      name: "Season 1",
+      posterPath: "/rbnuP7hlynAMLdqcQRCpZW9qDkV.jpg",
+      seasonNumber: 1,
+    )
+  ],
+);
+
+final testWatchlistTvSeries = TvSeries.watchlist(
+  id: 123,
+  name: "fsdafs",
+  posterPath: "fsdafs",
+  overview: "fsdafs",
+);
+
+final testTvSeriesTable = TvSeriesTable(
+  id: 123,
+  name: "fsdafs",
+  posterPath: "fsdafs",
+  overview: "fsdafs",
+);
+
+final testTvSeriesMap = {
+  'id': 123,
+  'overview': 'fsdafs',
+  'posterPath': 'fsdafs',
+  'name': 'fsdafs',
 };
