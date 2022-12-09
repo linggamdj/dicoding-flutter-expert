@@ -187,15 +187,14 @@ class DetailContent extends StatelessWidget {
                             ),
                             Consumer<TvSeriesDetailNotifier>(
                               builder: (context, data, child) {
-                                if (data.recommendationState ==
-                                    RequestState.Loading) {
+                                if (data.seriesState == RequestState.Loading) {
                                   return Center(
                                     child: CircularProgressIndicator(),
                                   );
-                                } else if (data.recommendationState ==
+                                } else if (data.seriesState ==
                                     RequestState.Error) {
                                   return Text(data.message);
-                                } else if (data.recommendationState ==
+                                } else if (data.seriesState ==
                                     RequestState.Loaded) {
                                   return Container(
                                     height: 150,
@@ -241,6 +240,128 @@ class DetailContent extends StatelessWidget {
                                 }
                               },
                             ),
+                            SizedBox(height: 16),
+                            Text(
+                              'Seasons',
+                              style: kHeading6,
+                            ),
+                            Consumer<TvSeriesDetailNotifier>(
+                              builder: (context, data, child) {
+                                if (data.recommendationState ==
+                                    RequestState.Loading) {
+                                  return Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                } else if (data.recommendationState ==
+                                    RequestState.Error) {
+                                  return Text(data.message);
+                                } else if (data.recommendationState ==
+                                    RequestState.Loaded) {
+                                  return Container(
+                                    height: 150,
+                                    child: ListView.builder(
+                                      scrollDirection: Axis.horizontal,
+                                      itemBuilder: (context, index) {
+                                        return Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: Row(
+                                            children: series.seasons
+                                                .map(
+                                                  (season) => Row(
+                                                    children: [
+                                                      Row(
+                                                        children: [
+                                                          ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .horizontal(
+                                                              left: Radius
+                                                                  .circular(8),
+                                                            ),
+                                                            child:
+                                                                CachedNetworkImage(
+                                                              imageUrl:
+                                                                  'https://image.tmdb.org/t/p/w500${season.posterPath == null ? series.posterPath : season.posterPath}',
+                                                              placeholder:
+                                                                  (context,
+                                                                          url) =>
+                                                                      Center(
+                                                                child:
+                                                                    CircularProgressIndicator(),
+                                                              ),
+                                                              errorWidget: (context,
+                                                                      url,
+                                                                      error) =>
+                                                                  Icon(Icons
+                                                                      .error),
+                                                            ),
+                                                          ),
+                                                          Container(
+                                                            margin:
+                                                                EdgeInsets.only(
+                                                                    right: 8.0),
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              border: Border.all(
+                                                                  color:
+                                                                      kPrussianBlue),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .horizontal(
+                                                                right: Radius
+                                                                    .circular(
+                                                                        8),
+                                                              ),
+                                                            ),
+                                                            child: Column(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                Text(
+                                                                  season.name,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                  ),
+                                                                ),
+                                                                SizedBox(
+                                                                    height: 4),
+                                                                Text(
+                                                                    '${season.episodeCount} Episodes'),
+                                                                SizedBox(
+                                                                    height: 16),
+                                                                Text(
+                                                                    'Premiered on ${season.airDate}'),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                )
+                                                .toList(),
+                                          ),
+                                        );
+                                      },
+                                      itemCount: 1,
+                                    ),
+                                  );
+                                } else {
+                                  return Container();
+                                }
+                              },
+                            ),
+                            SizedBox(height: 16),
                           ],
                         ),
                       ),

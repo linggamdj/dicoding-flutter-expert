@@ -1,4 +1,5 @@
 import 'package:ditonton/data/models/genre_model.dart';
+import 'package:ditonton/data/models/season_model.dart';
 import 'package:ditonton/domain/entities/tv_series_detail.dart';
 import 'package:equatable/equatable.dart';
 
@@ -11,6 +12,7 @@ class TvSeriesDetailModel extends Equatable {
   final String overview;
   final int numberOfSeasons;
   final int numberOfEpisodes;
+  final List<SeasonModel> seasons;
 
   TvSeriesDetailModel({
     required this.id,
@@ -21,6 +23,7 @@ class TvSeriesDetailModel extends Equatable {
     required this.overview,
     required this.numberOfEpisodes,
     required this.numberOfSeasons,
+    required this.seasons,
   });
 
   factory TvSeriesDetailModel.fromJson(Map<String, dynamic> json) =>
@@ -34,6 +37,8 @@ class TvSeriesDetailModel extends Equatable {
         overview: json['overview'],
         numberOfEpisodes: json['number_of_episodes'],
         numberOfSeasons: json['number_of_seasons'],
+        seasons: List<SeasonModel>.from(
+            json["seasons"].map((x) => SeasonModel.fromJson(x))),
       );
 
   TvSeriesDetail toEntity() {
@@ -46,6 +51,7 @@ class TvSeriesDetailModel extends Equatable {
       overview: this.overview,
       numberOfEpisodes: this.numberOfEpisodes,
       numberOfSeasons: this.numberOfSeasons,
+      seasons: this.seasons.map((season) => season.toEntity()).toList(),
     );
   }
 
@@ -58,6 +64,7 @@ class TvSeriesDetailModel extends Equatable {
         voteAverage,
         overview,
         numberOfEpisodes,
-        numberOfSeasons
+        numberOfSeasons,
+        seasons,
       ];
 }
