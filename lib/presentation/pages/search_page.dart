@@ -54,16 +54,23 @@ class SearchPage extends StatelessWidget {
                         );
                       } else if (data.state == RequestState.Loaded) {
                         final result = data.searchResult;
-                        return Expanded(
-                          child: ListView.builder(
-                            padding: const EdgeInsets.all(8),
-                            itemBuilder: (context, index) {
-                              final movie = data.searchResult[index];
-                              return MovieCard(movie);
-                            },
-                            itemCount: result.length,
-                          ),
-                        );
+                        return result.length != 0
+                            ? Expanded(
+                                child: ListView.builder(
+                                  padding: const EdgeInsets.all(8),
+                                  itemBuilder: (context, index) {
+                                    final movie = data.searchResult[index];
+                                    return MovieCard(movie);
+                                  },
+                                  itemCount: result.length,
+                                ),
+                              )
+                            : Center(
+                                child: Text(
+                                  'Movie Not Found!',
+                                  textAlign: TextAlign.center,
+                                ),
+                              );
                       } else {
                         return Expanded(
                           child: Container(),
@@ -79,16 +86,23 @@ class SearchPage extends StatelessWidget {
                         );
                       } else if (data.state == RequestState.Loaded) {
                         final result = data.searchResult;
-                        return Expanded(
-                          child: ListView.builder(
-                            padding: const EdgeInsets.all(8),
-                            itemBuilder: (context, index) {
-                              final movie = data.searchResult[index];
-                              return TvSeriesCard(movie);
-                            },
-                            itemCount: result.length,
-                          ),
-                        );
+                        return result.length != 0
+                            ? Expanded(
+                                child: ListView.builder(
+                                  padding: const EdgeInsets.all(8),
+                                  itemBuilder: (context, index) {
+                                    final series = data.searchResult[index];
+                                    return TvSeriesCard(series);
+                                  },
+                                  itemCount: result.length,
+                                ),
+                              )
+                            : Center(
+                                child: Text(
+                                  'TV Series Not Found!',
+                                  textAlign: TextAlign.center,
+                                ),
+                              );
                       } else {
                         return Expanded(
                           child: Container(),
