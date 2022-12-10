@@ -326,7 +326,8 @@ class DetailContent extends StatelessWidget {
                                                                       .center,
                                                               children: [
                                                                 Text(
-                                                                  season.name,
+                                                                  season.name ??
+                                                                      'Coming Soon',
                                                                   style:
                                                                       TextStyle(
                                                                     fontWeight:
@@ -337,11 +338,11 @@ class DetailContent extends StatelessWidget {
                                                                 SizedBox(
                                                                     height: 4),
                                                                 Text(
-                                                                    '${season.episodeCount} Episodes'),
+                                                                    '${season.episodeCount ?? "Coming Soon"} Episodes'),
                                                                 SizedBox(
                                                                     height: 16),
                                                                 Text(
-                                                                    'Premiered on ${season.airDate}'),
+                                                                    'Premiered on ${season.airDate ?? "Coming Soon"}'),
                                                               ],
                                                             ),
                                                           ),
