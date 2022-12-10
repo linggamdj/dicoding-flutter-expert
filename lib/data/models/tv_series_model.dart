@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 
 class TvSeriesModel extends Equatable {
   TvSeriesModel({
+    required this.backdropPath,
     required this.firstAirDate,
     required this.genreIds,
     required this.id,
@@ -15,9 +16,9 @@ class TvSeriesModel extends Equatable {
     required this.voteAverage,
     required this.voteCount,
     required this.posterPath,
-    required this.backdropPath,
   });
 
+  final String? backdropPath;
   final String firstAirDate;
   final List<int> genreIds;
   final int id;
@@ -27,10 +28,9 @@ class TvSeriesModel extends Equatable {
   final String originalName;
   final String overview;
   final double popularity;
-  final String posterPath;
+  final String? posterPath;
   final double voteAverage;
   final int voteCount;
-  final String backdropPath;
 
   factory TvSeriesModel.fromJson(Map<String, dynamic> json) => TvSeriesModel(
         backdropPath: json["backdrop_path"],
