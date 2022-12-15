@@ -1,12 +1,10 @@
 import 'package:ditonton/common/constants.dart';
-import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/presentation/bloc/search_bloc.dart';
-import 'package:ditonton/presentation/provider/tv_series_search_notifier.dart';
+import 'package:ditonton/presentation/bloc/movie_search/search_bloc.dart';
+import 'package:ditonton/presentation/bloc/tv_series_search/tv_series_search_bloc.dart';
 import 'package:ditonton/presentation/widgets/movie_card_list.dart';
 import 'package:ditonton/presentation/widgets/tv_series_card_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 
 class SearchPage extends StatelessWidget {
   static const ROUTE_NAME = '/search';
@@ -28,10 +26,10 @@ class SearchPage extends StatelessWidget {
             TextField(
               onChanged: (query) {
                 isMovie
-                    ? context.read<SearchBloc>().add(OnQueryChanged(query))
-                    : Provider.of<TvSeriesSearchNotifier>(context,
-                            listen: false)
-                        .fetchTvSeriesSearch(query);
+                    ? context.read<SearchMovieBloc>().add(OnQueryChanged(query))
+                    : context
+                        .read<SearchTvSeriesBloc>()
+                        .add(OnTvQueryChanged(query));
               },
               decoration: InputDecoration(
                 hintText: 'Search title',
@@ -46,7 +44,7 @@ class SearchPage extends StatelessWidget {
               style: kHeading6,
             ),
             isMovie
-                ? BlocBuilder<SearchBloc, SearchState>(
+                ? BlocBuilder<SearchMovieBloc, SearchState>(
                     builder: (context, state) {
                       if (state is SearchLoading) {
                         return Center(
@@ -79,41 +77,44 @@ class SearchPage extends StatelessWidget {
                           ),
                         );
                       } else {
-                        return Expanded(
-                          child: Container(),
-                        );
+                        return SizedBox();
                       }
                     },
                   )
-                : Consumer<TvSeriesSearchNotifier>(
-                    builder: (context, data, child) {
-                      if (data.state == RequestState.Loading) {
+                : BlocBuilder<SearchTvSeriesBloc, TvSeriesSearchState>(
+                    builder: (context, state) {
+                      if (state is TvSearchLoading) {
                         return Center(
                           child: CircularProgressIndicator(),
                         );
-                      } else if (data.state == RequestState.Loaded) {
-                        final result = data.searchResult;
+                      } else if (state is TvSearchHasData) {
+                        final result = state.result;
                         return result.length != 0
                             ? Expanded(
                                 child: ListView.builder(
                                   padding: const EdgeInsets.all(8),
                                   itemBuilder: (context, index) {
-                                    final series = data.searchResult[index];
+                                    final series = result[index];
                                     return TvSeriesCard(series);
                                   },
                                   itemCount: result.length,
                                 ),
                               )
-                            : Center(
-                                child: Text(
-                                  'TV Series Not Found!',
-                                  textAlign: TextAlign.center,
+                            : Expanded(
+                                child: Center(
+                                  child: Text(
+                                    'TV Series Not Found!',
+                                  ),
                                 ),
                               );
-                      } else {
+                      } else if (state is TvSearchError) {
                         return Expanded(
-                          child: Container(),
+                          child: Center(
+                            child: Text(state.message),
+                          ),
                         );
+                      } else {
+                        return SizedBox();
                       }
                     },
                   ),

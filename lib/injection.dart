@@ -27,7 +27,12 @@ import 'package:ditonton/domain/usecases/get_tv_series_watchlist_status.dart';
 import 'package:ditonton/domain/usecases/remove_tv_series_watchlist.dart';
 import 'package:ditonton/domain/usecases/save_tv_series_watchlist.dart';
 import 'package:ditonton/domain/usecases/search_tv_series.dart';
-import 'package:ditonton/presentation/bloc/search_bloc.dart';
+import 'package:ditonton/presentation/bloc/movie_detail/movie_detail_bloc.dart';
+import 'package:ditonton/presentation/bloc/movie_now_playing/movie_now_playing_bloc.dart';
+import 'package:ditonton/presentation/bloc/movie_popular/popular_movie_bloc.dart';
+import 'package:ditonton/presentation/bloc/movie_search/search_bloc.dart';
+import 'package:ditonton/presentation/bloc/movie_top_rated/movie_top_rated_bloc.dart';
+import 'package:ditonton/presentation/bloc/tv_series_search/tv_series_search_bloc.dart';
 import 'package:ditonton/presentation/provider/movie_detail_notifier.dart';
 import 'package:ditonton/presentation/provider/movie_list_notifier.dart';
 import 'package:ditonton/presentation/provider/movie_search_notifier.dart';
@@ -49,7 +54,33 @@ final locator = GetIt.instance;
 void init() {
   // bloc
   locator.registerFactory(
-    () => SearchBloc(
+    () => NowPlayingMovieBloc(
+      locator(),
+    ),
+  );
+  locator.registerFactory(
+    () => PopularMovieBloc(
+      locator(),
+    ),
+  );
+  locator.registerFactory(
+    () => TopRatedMovieBloc(
+      locator(),
+    ),
+  );
+  locator.registerFactory(
+    () => MovieDetailBloc(
+      locator(),
+      locator(),
+    ),
+  );
+  locator.registerFactory(
+    () => SearchMovieBloc(
+      locator(),
+    ),
+  );
+  locator.registerFactory(
+    () => SearchTvSeriesBloc(
       locator(),
     ),
   );

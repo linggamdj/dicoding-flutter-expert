@@ -7,10 +7,10 @@ import 'package:rxdart/rxdart.dart';
 part 'search_event.dart';
 part 'search_state.dart';
 
-class SearchBloc extends Bloc<SearchEvent, SearchState> {
+class SearchMovieBloc extends Bloc<SearchEvent, SearchState> {
   final SearchMovies _searchMovies;
 
-  SearchBloc(this._searchMovies) : super(SearchEmpty()) {
+  SearchMovieBloc(this._searchMovies) : super(SearchEmpty()) {
     on<OnQueryChanged>((event, emit) async {
       final query = event.query;
 
