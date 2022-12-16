@@ -1,12 +1,11 @@
 import 'package:ditonton/common/constants.dart';
-import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/common/utils.dart';
-import 'package:ditonton/presentation/provider/watchlist_movie_notifier.dart';
-import 'package:ditonton/presentation/provider/watchlist_tv_series_notifier.dart';
+import 'package:ditonton/presentation/bloc/movie_watchlist/movie_watchlist_bloc.dart';
+import 'package:ditonton/presentation/bloc/tv_series_watchlist/tv_series_watchlist_bloc.dart';
 import 'package:ditonton/presentation/widgets/movie_card_list.dart';
 import 'package:ditonton/presentation/widgets/tv_series_card_list.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WatchlistMoviesPage extends StatefulWidget {
   static const ROUTE_NAME = '/watchlist-movie';
@@ -21,12 +20,10 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
   void initState() {
     super.initState();
     Future.microtask(
-      () => Provider.of<WatchlistMovieNotifier>(context, listen: false)
-          .fetchWatchlistMovies(),
-    );
-    Future.microtask(
-      () => Provider.of<WatchlistTvSeriesNotifier>(context, listen: false)
-          .fetchWatchlistTvSeries(),
+      () {
+        context.read<MovieWatchlistBloc>().add(OnGetMovieWatchlist());
+        context.read<TvSeriesWatchlistBloc>().add(OnGetTvSeriesWatchlist());
+      },
     );
   }
 
@@ -37,10 +34,8 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
   }
 
   void didPopNext() {
-    Provider.of<WatchlistMovieNotifier>(context, listen: false)
-        .fetchWatchlistMovies();
-    Provider.of<WatchlistTvSeriesNotifier>(context, listen: false)
-        .fetchWatchlistTvSeries();
+    context.read<MovieWatchlistBloc>().add(OnGetMovieWatchlist());
+    context.read<TvSeriesWatchlistBloc>().add(OnGetTvSeriesWatchlist());
   }
 
   @override
@@ -61,16 +56,16 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
                 style: kHeading6,
               ),
               SizedBox(height: 8.0),
-              Consumer<WatchlistMovieNotifier>(
-                builder: (context, data, child) {
-                  if (data.watchlistState == RequestState.Loading) {
+              BlocBuilder<MovieWatchlistBloc, MovieWatchlistState>(
+                builder: (context, state) {
+                  if (state is MovieWatchlistLoading) {
                     return Center(
                       child: CircularProgressIndicator(),
                     );
-                  } else if (data.watchlistState == RequestState.Loaded) {
+                  } else if (state is MovieWatchlistHasData) {
                     return Column(
                       children: [
-                        data.watchlistMovies.length == 0
+                        state.movies.length == 0
                             ? Text(
                                 'Empty',
                               )
@@ -78,18 +73,20 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
                                 physics: NeverScrollableScrollPhysics(),
                                 shrinkWrap: true,
                                 itemBuilder: (context, index) {
-                                  final movie = data.watchlistMovies[index];
+                                  final movie = state.movies[index];
                                   return MovieCard(movie);
                                 },
-                                itemCount: data.watchlistMovies.length,
+                                itemCount: state.movies.length,
                               ),
                       ],
                     );
-                  } else {
+                  } else if (state is MovieWatchlistError) {
                     return Center(
                       key: Key('error_message'),
-                      child: Text(data.message),
+                      child: Text(state.message),
                     );
+                  } else {
+                    return Text("Failed");
                   }
                 },
               ),
@@ -99,16 +96,16 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
                 style: kHeading6,
               ),
               SizedBox(height: 8.0),
-              Consumer<WatchlistTvSeriesNotifier>(
-                builder: (context, data, child) {
-                  if (data.watchlistState == RequestState.Loading) {
+              BlocBuilder<TvSeriesWatchlistBloc, TvSeriesWatchlistState>(
+                builder: (context, state) {
+                  if (state is TvSeriesWatchlistLoading) {
                     return Center(
                       child: CircularProgressIndicator(),
                     );
-                  } else if (data.watchlistState == RequestState.Loaded) {
+                  } else if (state is TvSeriesWatchlistHasData) {
                     return Column(
                       children: [
-                        data.watchlistTvSeries.length == 0
+                        state.tvSeriesList.isEmpty
                             ? Text(
                                 'Empty',
                               )
@@ -116,18 +113,20 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
                                 physics: NeverScrollableScrollPhysics(),
                                 shrinkWrap: true,
                                 itemBuilder: (context, index) {
-                                  final series = data.watchlistTvSeries[index];
+                                  final series = state.tvSeriesList[index];
                                   return TvSeriesCard(series);
                                 },
-                                itemCount: data.watchlistTvSeries.length,
+                                itemCount: state.tvSeriesList.length,
                               ),
                       ],
                     );
-                  } else {
+                  } else if (state is TvSeriesWatchlistError) {
                     return Center(
                       key: Key('error_message'),
-                      child: Text(data.message),
+                      child: Text(state.message),
                     );
+                  } else {
+                    return Text("Failed");
                   }
                 },
               ),

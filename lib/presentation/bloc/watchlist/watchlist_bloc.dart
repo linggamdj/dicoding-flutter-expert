@@ -49,21 +49,5 @@ class WatchlistBloc extends Bloc<WatchlistEvent, WatchlistState> {
         );
       },
     );
-
-    // on<GetWatchlistMovie>(
-    //   (event, emit) async {
-    //     emit(WatchlistLoading());
-    //     final result = await _removeWatchlist.execute(event.movieDetail);
-
-    //     result.fold(
-    //       (failure) async {
-    //         emit(WatchlistError(failure.message));
-    //       },
-    //       (movieData) async {
-    //         emit(WatchlistHasData(watchlistRemoveSuccessMessage));
-    //       },
-    //     );
-    //   },
-    // );
   }
 }

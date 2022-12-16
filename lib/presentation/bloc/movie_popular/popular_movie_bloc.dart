@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
 part 'popular_movie_event.dart';
-part 'popular_movie_state.dart';
+part 'popular_popular_state.dart';
 
 class PopularMovieBloc extends Bloc<PopularMovieEvent, PopularMovieState> {
   final GetPopularMovies _getPopularMovies;

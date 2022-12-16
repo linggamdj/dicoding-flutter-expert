@@ -32,7 +32,13 @@ import 'package:ditonton/presentation/bloc/movie_now_playing/movie_now_playing_b
 import 'package:ditonton/presentation/bloc/movie_popular/popular_movie_bloc.dart';
 import 'package:ditonton/presentation/bloc/movie_search/search_bloc.dart';
 import 'package:ditonton/presentation/bloc/movie_top_rated/movie_top_rated_bloc.dart';
+import 'package:ditonton/presentation/bloc/movie_watchlist/movie_watchlist_bloc.dart';
+import 'package:ditonton/presentation/bloc/tv_series_airing/airing_tv_series_bloc.dart';
+import 'package:ditonton/presentation/bloc/tv_series_detail/tv_series_detail_bloc.dart';
+import 'package:ditonton/presentation/bloc/tv_series_popular/popular_tv_series_bloc.dart';
 import 'package:ditonton/presentation/bloc/tv_series_search/tv_series_search_bloc.dart';
+import 'package:ditonton/presentation/bloc/tv_series_top_rated/top_rated_tv_series_bloc.dart';
+import 'package:ditonton/presentation/bloc/tv_series_watchlist/tv_series_watchlist_bloc.dart';
 import 'package:ditonton/presentation/provider/movie_detail_notifier.dart';
 import 'package:ditonton/presentation/provider/movie_list_notifier.dart';
 import 'package:ditonton/presentation/provider/movie_search_notifier.dart';
@@ -72,10 +78,49 @@ void init() {
     () => MovieDetailBloc(
       locator(),
       locator(),
+      locator(),
+    ),
+  );
+  locator.registerFactory(
+    () => MovieWatchlistBloc(
+      locator(),
+      locator(),
+      locator(),
+      locator(),
     ),
   );
   locator.registerFactory(
     () => SearchMovieBloc(
+      locator(),
+    ),
+  );
+  locator.registerFactory(
+    () => PopularTvSeriesBloc(
+      locator(),
+    ),
+  );
+  locator.registerFactory(
+    () => TopRatedTvSeriesBloc(
+      locator(),
+    ),
+  );
+  locator.registerFactory(
+    () => AiringTvSeriesBloc(
+      locator(),
+    ),
+  );
+  locator.registerFactory(
+    () => TvSeriesDetailBloc(
+      locator(),
+      locator(),
+      locator(),
+    ),
+  );
+  locator.registerFactory(
+    () => TvSeriesWatchlistBloc(
+      locator(),
+      locator(),
+      locator(),
       locator(),
     ),
   );

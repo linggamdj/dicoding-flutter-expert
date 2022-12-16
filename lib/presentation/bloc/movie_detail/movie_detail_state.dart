@@ -23,9 +23,10 @@ class MovieDetailError extends MovieDetailState {
 class MovieDetailHasData extends MovieDetailState {
   final MovieDetail movieData;
   final List<Movie> moviesData;
+  final bool watchlistStatus;
 
-  MovieDetailHasData(this.movieData, this.moviesData);
+  MovieDetailHasData(this.movieData, this.moviesData, this.watchlistStatus);
 
   @override
-  List<Object> get props => [movieData, moviesData];
+  List<Object> get props => [movieData, moviesData, watchlistStatus];
 }

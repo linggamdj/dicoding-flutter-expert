@@ -5,7 +5,13 @@ import 'package:ditonton/presentation/bloc/movie_now_playing/movie_now_playing_b
 import 'package:ditonton/presentation/bloc/movie_popular/popular_movie_bloc.dart';
 import 'package:ditonton/presentation/bloc/movie_search/search_bloc.dart';
 import 'package:ditonton/presentation/bloc/movie_top_rated/movie_top_rated_bloc.dart';
+import 'package:ditonton/presentation/bloc/movie_watchlist/movie_watchlist_bloc.dart';
+import 'package:ditonton/presentation/bloc/tv_series_airing/airing_tv_series_bloc.dart';
+import 'package:ditonton/presentation/bloc/tv_series_detail/tv_series_detail_bloc.dart';
+import 'package:ditonton/presentation/bloc/tv_series_popular/popular_tv_series_bloc.dart';
 import 'package:ditonton/presentation/bloc/tv_series_search/tv_series_search_bloc.dart';
+import 'package:ditonton/presentation/bloc/tv_series_top_rated/top_rated_tv_series_bloc.dart';
+import 'package:ditonton/presentation/bloc/tv_series_watchlist/tv_series_watchlist_bloc.dart';
 import 'package:ditonton/presentation/pages/about_page.dart';
 import 'package:ditonton/presentation/pages/airing_tv_series_page.dart';
 import 'package:ditonton/presentation/pages/movie_detail_page.dart';
@@ -99,7 +105,25 @@ class MyApp extends StatelessWidget {
           create: (_) => di.locator<MovieDetailBloc>(),
         ),
         BlocProvider(
+          create: (_) => di.locator<MovieWatchlistBloc>(),
+        ),
+        BlocProvider(
           create: (_) => di.locator<SearchMovieBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<PopularTvSeriesBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<TopRatedTvSeriesBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<AiringTvSeriesBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<TvSeriesDetailBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<TvSeriesWatchlistBloc>(),
         ),
         BlocProvider(
           create: (_) => di.locator<SearchTvSeriesBloc>(),
