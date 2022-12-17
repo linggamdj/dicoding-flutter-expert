@@ -37,12 +37,3 @@ class MovieWatchlistMessage extends MovieWatchlistState {
   @override
   List<Object> get props => [successMessage];
 }
-
-class MovieWatchlistStatus extends MovieWatchlistState {
-  final bool status;
-
-  MovieWatchlistStatus(this.status);
-
-  @override
-  List<Object> get props => [status];
-}

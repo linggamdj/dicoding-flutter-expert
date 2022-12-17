@@ -37,12 +37,3 @@ class TvSeriesWatchlistMessage extends TvSeriesWatchlistState {
   @override
   List<Object> get props => [successMessage];
 }
-
-class TvSeriesWatchlistStatus extends TvSeriesWatchlistState {
-  final bool status;
-
-  TvSeriesWatchlistStatus(this.status);
-
-  @override
-  List<Object> get props => [status];
-}

@@ -14,15 +14,6 @@ class OnGetTvSeriesWatchlist extends TvSeriesWatchlistEvent {
   List<Object> get props => [];
 }
 
-class OnTvSeriesWatchlistStatus extends TvSeriesWatchlistEvent {
-  final int id;
-
-  OnTvSeriesWatchlistStatus(this.id);
-
-  @override
-  List<Object> get props => [id];
-}
-
 class OnAddTvSeriesToWatchlist extends TvSeriesWatchlistEvent {
   final TvSeriesDetail tvSeriesDetail;
 

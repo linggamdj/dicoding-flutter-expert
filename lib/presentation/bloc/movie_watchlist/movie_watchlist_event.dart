@@ -14,15 +14,6 @@ class OnGetMovieWatchlist extends MovieWatchlistEvent {
   List<Object> get props => [];
 }
 
-class OnMovieWatchlistStatus extends MovieWatchlistEvent {
-  final int id;
-
-  OnMovieWatchlistStatus(this.id);
-
-  @override
-  List<Object> get props => [id];
-}
-
 class OnAddMovieToWatchlist extends MovieWatchlistEvent {
   final MovieDetail movieDetail;
 

@@ -13,14 +13,10 @@ part 'tv_series_watchlist_state.dart';
 class TvSeriesWatchlistBloc
     extends Bloc<TvSeriesWatchlistEvent, TvSeriesWatchlistState> {
   final GetWatchlistTvSeries _getWatchlistTvSeries;
-  final GetTvSeriesWatchListStatus _getTvSeriesWatchListStatus;
   final SaveTvSeriesWatchlist _saveTvSeriesWatchlist;
   final RemoveTvSeriesWatchlist _removeTvSeriesWatchlist;
 
-  TvSeriesWatchlistBloc(
-      this._getWatchlistTvSeries,
-      this._getTvSeriesWatchListStatus,
-      this._saveTvSeriesWatchlist,
+  TvSeriesWatchlistBloc(this._getWatchlistTvSeries, this._saveTvSeriesWatchlist,
       this._removeTvSeriesWatchlist)
       : super(TvSeriesWatchlistEmpty()) {
     on<OnGetTvSeriesWatchlist>(
@@ -36,13 +32,6 @@ class TvSeriesWatchlistBloc
             emit(TvSeriesWatchlistHasData(tvSeriesList));
           },
         );
-      },
-    );
-
-    on<OnTvSeriesWatchlistStatus>(
-      (event, emit) async {
-        final result = await _getTvSeriesWatchListStatus.execute(event.id);
-        emit(TvSeriesWatchlistStatus(result));
       },
     );
 
