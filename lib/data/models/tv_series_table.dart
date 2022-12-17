@@ -44,6 +44,7 @@ class TvSeriesTable extends Equatable {
       );
 
   @override
+  // ignore: todo
   // TODO: implement props
   List<Object?> get props => [id, name, posterPath, overview];
 }

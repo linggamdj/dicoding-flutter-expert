@@ -58,6 +58,7 @@ class _TvSeriesDetailPageState extends State<TvSeriesDetailPage> {
   }
 }
 
+// ignore: must_be_immutable
 class DetailContent extends StatefulWidget {
   final TvSeriesDetail series;
   final List<TvSeries> recommendations;
