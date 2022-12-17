@@ -8,6 +8,8 @@ import 'package:ditonton/domain/entities/movie_detail.dart';
 import 'package:ditonton/domain/entities/tv_series_detail.dart';
 
 // Movie
+final tId = 1;
+
 final testMovie = Movie(
   adult: false,
   backdropPath: '/muth4OYamXf41G2evdrLEg8d3om.jpg',
@@ -41,6 +43,26 @@ final testMovieDetail = MovieDetail(
   voteAverage: 1,
   voteCount: 1,
 );
+
+final tMovieModel = Movie(
+  adult: false,
+  backdropPath: '/muth4OYamXf41G2evdrLEg8d3om.jpg',
+  genreIds: [14, 28],
+  id: 557,
+  originalTitle: 'Spider-Man',
+  overview:
+      'After being bitten by a genetically altered spider, nerdy high school student Peter Parker is endowed with amazing powers to become the Amazing superhero known as Spider-Man.',
+  popularity: 60.441,
+  posterPath: '/rweIrveL43TaxUN0akQEaAXL6x0.jpg',
+  releaseDate: '2002-05-01',
+  title: 'Spider-Man',
+  video: false,
+  voteAverage: 7.2,
+  voteCount: 13507,
+);
+
+final tMovieList = <Movie>[tMovieModel];
+final tQuery = 'fuiyo';
 
 final testWatchlistMovie = Movie.watchlist(
   id: 1,
@@ -103,6 +125,24 @@ final testTvSeriesDetail = TvSeriesDetail(
     )
   ],
 );
+
+final tTvSeriesModel = TvSeries(
+  firstAirDate: '321',
+  backdropPath: 'backdropPath',
+  genreIds: [1, 2, 3],
+  id: 1,
+  name: 'fdsafds',
+  overview: 'overview',
+  popularity: 1,
+  posterPath: 'posterPath',
+  originCountry: ['id'],
+  originalLanguage: 'id',
+  originalName: 'turkturk,',
+  voteAverage: 1,
+  voteCount: 1,
+);
+
+final tTvSeriesList = <TvSeries>[tTvSeriesModel];
 
 final testWatchlistTvSeries = TvSeries.watchlist(
   id: 123,

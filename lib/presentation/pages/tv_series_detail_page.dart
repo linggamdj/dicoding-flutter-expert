@@ -71,8 +71,6 @@ class DetailContent extends StatefulWidget {
 }
 
 class _DetailContentState extends State<DetailContent> {
-  final String watchlistAddSuccessMessage = 'Added to Watchlist';
-  final String watchlistRemoveSuccessMessage = 'Removed from Watchlist';
   String message = '';
 
   @override
@@ -127,20 +125,9 @@ class _DetailContentState extends State<DetailContent> {
                                           widget.series));
                                 }
 
-                                final state =
-                                    BlocProvider.of<TvSeriesWatchlistBloc>(
-                                            context)
-                                        .state;
-
-                                if (state is TvSeriesWatchlistStatus) {
-                                  message = !state.status
-                                      ? watchlistAddSuccessMessage
-                                      : watchlistRemoveSuccessMessage;
-                                } else {
-                                  message = !widget.isAddedWatchlist
-                                      ? watchlistAddSuccessMessage
-                                      : watchlistRemoveSuccessMessage;
-                                }
+                                message = !widget.isAddedWatchlist
+                                    ? watchlistAddSuccessMessage
+                                    : watchlistRemoveSuccessMessage;
 
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
